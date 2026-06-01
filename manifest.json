@@ -1,0 +1,41 @@
+{
+  "name": "CES 2027 브리핑 가이드",
+  "short_name": "CES 2027",
+  "description": "2027 미국 CES 참관단 브리핑 가이드 — 화성시수출업무지원센터",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#080C12",
+  "theme_color": "#080C12",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%23080C12'/%3E%3Ctext x='96' y='108' font-size='80' text-anchor='middle' font-family='sans-serif'%3E🌐%3C/text%3E%3Ctext x='96' y='152' font-size='24' font-weight='bold' text-anchor='middle' fill='%233B82F6' font-family='sans-serif'%3ECES 27%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23080C12'/%3E%3Ctext x='256' y='300' font-size='220' text-anchor='middle' font-family='sans-serif'%3E🌐%3C/text%3E%3Ctext x='256' y='420' font-size='68' font-weight='bold' text-anchor='middle' fill='%233B82F6' font-family='sans-serif'%3ECES 2027%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "shortcuts": [
+    {
+      "name": "7대 핵심 파트",
+      "short_name": "파트",
+      "description": "CES 7대 핵심 파트 보기",
+      "url": "./index.html#parts"
+    },
+    {
+      "name": "현장 체크리스트",
+      "short_name": "체크",
+      "description": "참관 체크리스트",
+      "url": "./index.html#check"
+    }
+  ]
+}
