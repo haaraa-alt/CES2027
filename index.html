@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CES 2027 브리핑 가이드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080C12;
+  --bg2: #0D1320;
+  --bg3: #111827;
+  --surface: #151E2E;
+  --surface2: #1C2840;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #F0F4FF;
+  --text2: #8899BB;
+  --text3: #556080;
+
+  --c-ai: #3B82F6;
+  --c-ai-glow: rgba(59,130,246,0.25);
+  --c-ai-dim: #1E3A5F;
+
+  --c-mob: #10B981;
+  --c-mob-glow: rgba(16,185,129,0.25);
+  --c-mob-dim: #064E3B;
+
+  --c-health: #F59E0B;
+  --c-health-glow: rgba(245,158,11,0.25);
+  --c-health-dim: #4D3000;
+
+  --c-robot: #A78BFA;
+  --c-robot-glow: rgba(167,139,250,0.25);
+  --c-robot-dim: #2E1A5E;
+
+  --c-home: #F472B6;
+  --c-home-glow: rgba(244,114,182,0.25);
+  --c-home-dim: #5B1A3C;
+
+  --c-esg: #34D399;
+  --c-esg-glow: rgba(52,211,153,0.25);
+  --c-esg-dim: #064438;
+
+  --c-life: #FB923C;
+  --c-life-glow: rgba(251,146,60,0.25);
+  --c-life-dim: #4A1A00;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* ── SPLASH ── */
+#splash {
+  position: fixed; inset:0; z-index:999;
+  background: var(--bg);
+  display: flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+#splash.hide { opacity:0; transform:scale(1.04); pointer-events:none; }
+
+.splash-eyebrow {
+  font-family:'Syne',sans-serif;
+  font-size:11px; letter-spacing:0.25em;
+  color: var(--text3); text-transform:uppercase;
+  margin-bottom:16px;
+}
+.splash-title {
+  font-family:'Syne',sans-serif;
+  font-size:clamp(36px,10vw,48px);
+  font-weight:800; letter-spacing:-0.03em;
+  color: var(--text); text-align:center;
+  line-height:1.1;
+}
+.splash-title span {
+  background: linear-gradient(135deg, #3B82F6 0%, #A78BFA 50%, #F472B6 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.splash-sub {
+  margin-top:12px;
+  font-size:13px; color:var(--text3);
+  letter-spacing:0.05em;
+}
+.splash-loader {
+  margin-top:48px;
+  width:48px; height:2px; background:var(--surface2); border-radius:2px;
+  overflow:hidden;
+}
+.splash-loader-bar {
+  height:100%; width:0%; background:linear-gradient(90deg,#3B82F6,#A78BFA);
+  border-radius:2px;
+  animation: loadbar 1.8s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes loadbar { 0%{width:0%} 60%{width:70%} 100%{width:100%} }
+
+/* ── APP SHELL ── */
+#app {
+  position:fixed; inset:0;
+  display:flex; flex-direction:column;
+  opacity:0; transition:opacity 0.5s ease 0.1s;
+}
+#app.visible { opacity:1; }
+
+/* ── TOP NAV ── */
+.topnav {
+  flex-shrink:0;
+  padding: 52px 20px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  background: linear-gradient(180deg, rgba(8,12,18,0.98) 0%, rgba(8,12,18,0) 100%);
+  position:relative; z-index:10;
+}
+.topnav-left { display:flex; flex-direction:column; gap:2px; }
+.topnav-eyebrow {
+  font-size:10px; letter-spacing:0.15em; color:var(--text3);
+  text-transform:uppercase; font-family:'Syne',sans-serif;
+}
+.topnav-title {
+  font-family:'Syne',sans-serif;
+  font-size:20px; font-weight:800; color:var(--text);
+  letter-spacing:-0.02em;
+}
+.topnav-badge {
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  border-radius:99px;
+  padding:6px 12px;
+  font-size:11px; color:var(--text2);
+  font-family:'Syne',sans-serif;
+}
+.progress-bar-wrap {
+  height:2px; background:var(--border); margin:0 20px;
+}
+.progress-bar-fill {
+  height:100%; background:linear-gradient(90deg,#3B82F6,#A78BFA,#F472B6);
+  border-radius:2px;
+  transition: width 0.5s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── SCREEN CONTAINER ── */
+.screens-wrap {
+  flex:1; overflow:hidden; position:relative;
+}
+.screens {
+  display:flex; height:100%;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+.screen-page {
+  flex-shrink:0; width:100%; height:100%;
+  overflow-y:auto; overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding:0 0 100px;
+}
+.screen-page::-webkit-scrollbar { display:none; }
+
+/* ── BOTTOM NAV ── */
+.bottomnav {
+  flex-shrink:0;
+  position:absolute; bottom:0; left:0; right:0;
+  display:flex; align-items:stretch;
+  background: linear-gradient(0deg, rgba(8,12,18,0.99) 60%, rgba(8,12,18,0) 100%);
+  padding:12px 20px 32px;
+  gap:8px;
+  z-index:10;
+}
+.bn-btn {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:4px; padding:8px 4px;
+  background:none; border:none; cursor:pointer;
+  border-radius:12px; transition:background 0.2s;
+}
+.bn-btn.active { background:var(--surface); }
+.bn-icon {
+  width:22px; height:22px;
+  display:flex; align-items:center; justify-content:center;
+}
+.bn-icon svg { width:20px; height:20px; }
+.bn-btn .bn-label {
+  font-size:9px; letter-spacing:0.05em;
+  color:var(--text3); text-transform:uppercase;
+  font-family:'Syne',sans-serif;
+  transition:color 0.2s;
+}
+.bn-btn.active .bn-label { color:var(--text); }
+.bn-btn.active .bn-icon svg path,
+.bn-btn.active .bn-icon svg circle,
+.bn-btn.active .bn-icon svg rect { stroke: var(--text); }
+
+/* ══════════════════════════════
+   PAGE 0 — HOME
+══════════════════════════════ */
+.home-hero {
+  position:relative; overflow:hidden;
+  padding:24px 20px 32px;
+  margin-bottom:4px;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse 120% 80% at 50% 0%, rgba(59,130,246,0.15) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-grid-lines {
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size:40px 40px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,0.4) 0%,transparent 100%);
+}
+.hero-overline {
+  font-family:'Syne',sans-serif;
+  font-size:10px; letter-spacing:0.2em;
+  color:var(--text3); text-transform:uppercase;
+  margin-bottom:12px;
+  display:flex; align-items:center; gap:8px;
+}
+.hero-overline::before {
+  content:''; width:20px; height:1px; background:var(--text3);
+}
+.hero-headline {
+  font-family:'Syne',sans-serif;
+  font-size:clamp(28px,7.5vw,36px);
+  font-weight:800; letter-spacing:-0.03em;
+  line-height:1.1; color:var(--text);
+  margin-bottom:8px;
+}
+.hero-headline .accent {
+  background:linear-gradient(135deg,#3B82F6,#A78BFA);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-desc {
+  font-size:13px; color:var(--text2);
+  line-height:1.7; max-width:320px;
+  margin-bottom:24px;
+}
+.hero-stats {
+  display:flex; gap:16px;
+}
+.hero-stat {
+  display:flex; flex-direction:column; gap:2px;
+}
+.hero-stat-num {
+  font-family:'Syne',sans-serif;
+  font-size:22px; font-weight:700;
+  color:var(--text); letter-spacing:-0.02em;
+}
+.hero-stat-label {
+  font-size:10px; color:var(--text3);
+  letter-spacing:0.05em;
+}
+
+/* Flow timeline */
+.flow-section { padding:0 20px 24px; }
+.section-eyebrow {
+  font-family:'Syne',sans-serif;
+  font-size:10px; letter-spacing:0.18em;
+  color:var(--text3); text-transform:uppercase;
+  margin-bottom:16px;
+  display:flex; align-items:center; gap:8px;
+}
+.section-eyebrow::after {
+  content:''; flex:1; height:1px; background:var(--border);
+}
+
+.flow-timeline { display:flex; flex-direction:column; gap:0; }
+.flow-item {
+  display:flex; gap:16px; position:relative;
+}
+.flow-item:not(:last-child)::after {
+  content:''; position:absolute;
+  left:15px; top:32px; bottom:-4px; width:1px;
+  background:linear-gradient(180deg,var(--border2),transparent);
+}
+.flow-dot {
+  width:30px; height:30px; border-radius:50%;
+  flex-shrink:0; margin-top:4px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-size:11px; font-weight:700;
+}
+.flow-content { flex:1; padding-bottom:24px; }
+.flow-period {
+  font-size:10px; color:var(--text3); letter-spacing:0.1em;
+  margin-bottom:4px; font-family:'Syne',sans-serif;
+}
+.flow-title {
+  font-family:'Syne',sans-serif;
+  font-size:15px; font-weight:700; color:var(--text);
+  margin-bottom:6px; letter-spacing:-0.01em;
+}
+.flow-desc {
+  font-size:12px; color:var(--text2); line-height:1.65;
+}
+
+/* ══════════════════════════════
+   PAGE 1 — PARTS GRID
+══════════════════════════════ */
+.parts-header { padding:24px 20px 20px; }
+.parts-title {
+  font-family:'Syne',sans-serif;
+  font-size:24px; font-weight:800;
+  color:var(--text); letter-spacing:-0.02em;
+  margin-bottom:6px;
+}
+.parts-sub { font-size:13px; color:var(--text2); line-height:1.6; }
+
+.parts-grid {
+  padding:0 16px;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.part-card {
+  border-radius:20px;
+  padding:20px 16px;
+  position:relative; overflow:hidden;
+  cursor:pointer;
+  transition: transform 0.2s cubic-bezier(.4,0,.2,1), box-shadow 0.2s;
+  background:var(--surface);
+  border:1px solid var(--border);
+  -webkit-user-select:none; user-select:none;
+}
+.part-card:active { transform:scale(0.96); }
+.part-card.wide { grid-column:1/-1; }
+
+.part-card-glow {
+  position:absolute; top:-40px; right:-40px;
+  width:120px; height:120px; border-radius:50%;
+  filter:blur(40px); opacity:0.5;
+  pointer-events:none;
+}
+.part-card-num {
+  font-family:'Syne',sans-serif;
+  font-size:11px; font-weight:700;
+  letter-spacing:0.1em; margin-bottom:12px;
+  opacity:0.6;
+}
+.part-card-icon {
+  width:36px; height:36px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:12px; font-size:18px;
+}
+.part-card-title {
+  font-family:'Syne',sans-serif;
+  font-size:14px; font-weight:700;
+  color:var(--text); letter-spacing:-0.01em;
+  line-height:1.3; margin-bottom:6px;
+}
+.part-card-sub {
+  font-size:11px; color:var(--text3); line-height:1.5;
+}
+.part-card-arrow {
+  position:absolute; bottom:14px; right:14px;
+  width:24px; height:24px; border-radius:50%;
+  background:var(--border); display:flex;
+  align-items:center; justify-content:center;
+}
+.part-card-arrow svg { width:12px; height:12px; }
+
+/* ══════════════════════════════
+   PAGE 2 — DETAIL VIEW
+══════════════════════════════ */
+.detail-page { display:none; }
+.detail-page.active { display:block; }
+
+.detail-hero {
+  position:relative; overflow:hidden;
+  padding:24px 20px 28px;
+}
+.detail-hero-bg {
+  position:absolute; inset:0;
+  pointer-events:none;
+}
+.detail-back {
+  display:flex; align-items:center; gap:8px;
+  font-size:12px; color:var(--text2);
+  margin-bottom:20px; cursor:pointer;
+  background:none; border:none; color:var(--text2);
+  font-family:'Noto Sans KR',sans-serif;
+  -webkit-tap-highlight-color:transparent;
+}
+.detail-back svg { width:16px; height:16px; }
+.detail-part-num {
+  font-family:'Syne',sans-serif;
+  font-size:11px; letter-spacing:0.2em;
+  text-transform:uppercase; margin-bottom:8px; opacity:0.6;
+}
+.detail-title {
+  font-family:'Syne',sans-serif;
+  font-size:clamp(24px,6vw,30px);
+  font-weight:800; letter-spacing:-0.02em;
+  color:var(--text); line-height:1.2;
+  margin-bottom:12px;
+}
+.detail-tags {
+  display:flex; flex-wrap:wrap; gap:6px;
+}
+.detail-tag {
+  padding:4px 10px; border-radius:99px;
+  font-size:11px; font-weight:500;
+  border:1px solid;
+}
+
+.detail-content { padding:0 20px; }
+.detail-lead {
+  font-size:14px; color:var(--text2);
+  line-height:1.75; margin-bottom:28px;
+  padding-bottom:24px;
+  border-bottom:1px solid var(--border);
+}
+.detail-lead strong { color:var(--text); font-weight:500; }
+
+.case-section { margin-bottom:28px; }
+.case-label {
+  font-family:'Syne',sans-serif;
+  font-size:10px; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--text3);
+  margin-bottom:14px;
+  display:flex; align-items:center; gap:8px;
+}
+.case-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+.case-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:12px;
+  position:relative; overflow:hidden;
+}
+.case-card-accent {
+  position:absolute; top:0; left:0; width:3px; height:100%;
+  border-radius:3px 0 0 3px;
+}
+.case-card-header {
+  display:flex; justify-content:space-between;
+  align-items:flex-start; margin-bottom:10px;
+}
+.case-card-name {
+  font-family:'Syne',sans-serif;
+  font-size:14px; font-weight:700;
+  color:var(--text); letter-spacing:-0.01em;
+}
+.case-badge {
+  font-size:10px; padding:3px 8px;
+  border-radius:99px; font-weight:500;
+  white-space:nowrap; flex-shrink:0;
+}
+.case-desc {
+  font-size:12.5px; color:var(--text2); line-height:1.7;
+}
+
+.insight-list { display:flex; flex-direction:column; gap:10px; }
+.insight-item {
+  display:flex; gap:12px; align-items:flex-start;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px; padding:14px;
+}
+.insight-dot {
+  width:8px; height:8px; border-radius:50%;
+  flex-shrink:0; margin-top:4px;
+}
+.insight-text { font-size:12.5px; color:var(--text2); line-height:1.65; }
+.insight-text strong { color:var(--text); font-weight:500; }
+
+/* checkpoint */
+.checkpoint-box {
+  border-radius:16px; padding:18px;
+  border:1px solid;
+  margin-top:24px; margin-bottom:8px;
+}
+.checkpoint-header {
+  font-family:'Syne',sans-serif;
+  font-size:11px; letter-spacing:0.15em;
+  text-transform:uppercase; margin-bottom:14px;
+  display:flex; align-items:center; gap:8px;
+}
+.checkpoint-item {
+  display:flex; gap:10px; align-items:flex-start;
+  margin-bottom:10px;
+}
+.checkpoint-item:last-child { margin-bottom:0; }
+.checkpoint-num {
+  width:20px; height:20px; border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-size:10px; font-weight:700;
+  flex-shrink:0;
+}
+.checkpoint-q {
+  font-size:12.5px; color:var(--text2); line-height:1.65;
+}
+
+/* ══════════════════════════════
+   PAGE 3 — CHECKLIST
+══════════════════════════════ */
+.checklist-header { padding:24px 20px 20px; }
+.checklist-title {
+  font-family:'Syne',sans-serif;
+  font-size:24px; font-weight:800;
+  color:var(--text); letter-spacing:-0.02em;
+  margin-bottom:6px;
+}
+.checklist-sub { font-size:13px; color:var(--text2); line-height:1.6; }
+
+.checklist-progress {
+  margin:0 20px 24px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px; padding:16px;
+}
+.cp-row {
+  display:flex; justify-content:space-between;
+  align-items:center; margin-bottom:10px;
+}
+.cp-label {
+  font-family:'Syne',sans-serif;
+  font-size:12px; color:var(--text2);
+}
+.cp-count {
+  font-family:'Syne',sans-serif;
+  font-size:18px; font-weight:700; color:var(--text);
+}
+.cp-bar {
+  height:4px; background:var(--border);
+  border-radius:4px; overflow:hidden;
+}
+.cp-fill {
+  height:100%; border-radius:4px;
+  background:linear-gradient(90deg,#3B82F6,#A78BFA,#F472B6);
+  transition:width 0.5s cubic-bezier(.4,0,.2,1);
+  width:0%;
+}
+
+.checklist-section { padding:0 20px 20px; }
+.cl-section-head {
+  display:flex; align-items:center; gap:8px;
+  margin-bottom:12px;
+}
+.cl-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.cl-section-name {
+  font-family:'Syne',sans-serif;
+  font-size:12px; font-weight:700;
+  color:var(--text); letter-spacing:0.02em;
+}
+
+.cl-item {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:12px 14px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px; margin-bottom:8px;
+  cursor:pointer; transition:border-color 0.2s, background 0.2s;
+  -webkit-user-select:none; user-select:none;
+}
+.cl-item:active { transform:scale(0.98); }
+.cl-checkbox {
+  width:20px; height:20px; border-radius:6px;
+  border:1.5px solid var(--border2);
+  flex-shrink:0; margin-top:1px;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s;
+}
+.cl-checkbox svg { width:11px; height:11px; opacity:0; transition:opacity 0.2s; }
+.cl-item.checked .cl-checkbox svg { opacity:1; }
+.cl-text { font-size:12.5px; color:var(--text2); line-height:1.65; }
+.cl-item.checked .cl-text { color:var(--text3); text-decoration:line-through; }
+
+/* outro card */
+.outro-card {
+  margin:0 20px 20px;
+  background:linear-gradient(135deg,#0D1A3A 0%, #1A0D3A 100%);
+  border:1px solid rgba(167,139,250,0.2);
+  border-radius:20px; padding:24px;
+  position:relative; overflow:hidden;
+}
+.outro-glow {
+  position:absolute; top:-60px; right:-60px;
+  width:180px; height:180px; border-radius:50%;
+  background:radial-gradient(circle,rgba(167,139,250,0.2),transparent);
+  pointer-events:none;
+}
+.outro-quote {
+  font-family:'Syne',sans-serif;
+  font-size:18px; font-weight:700;
+  color:var(--text); line-height:1.4;
+  letter-spacing:-0.02em; margin-bottom:12px;
+  position:relative;
+}
+.outro-quote .hl {
+  background:linear-gradient(135deg,#A78BFA,#F472B6);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.outro-sub {
+  font-size:12px; color:var(--text3); line-height:1.6;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.anim { animation:fadeInUp 0.5s cubic-bezier(.4,0,.2,1) both; }
+.anim-d1 { animation-delay:0.05s; }
+.anim-d2 { animation-delay:0.1s; }
+.anim-d3 { animation-delay:0.15s; }
+.anim-d4 { animation-delay:0.2s; }
+.anim-d5 { animation-delay:0.25s; }
+.anim-d6 { animation-delay:0.3s; }
+.anim-d7 { animation-delay:0.35s; }
+
+/* dot indicator */
+.dot-indicator {
+  display:flex; justify-content:center; gap:6px;
+  padding:8px 0 4px;
+}
+.dot-ind {
+  width:5px; height:5px; border-radius:50%;
+  background:var(--border2); transition:all 0.3s;
+}
+.dot-ind.active {
+  width:18px; border-radius:3px;
+  background:linear-gradient(90deg,#3B82F6,#A78BFA);
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-eyebrow">Hwaseong International Trade Promotion Center</div>
+  <div class="splash-title">CES<br><span>2027</span></div>
+  <div class="splash-sub">브리핑 가이드</div>
+  <div class="splash-loader"><div class="splash-loader-bar"></div></div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- TOP -->
+  <div class="topnav">
+    <div class="topnav-left">
+      <div class="topnav-eyebrow" id="nav-eyebrow">Overview</div>
+      <div class="topnav-title" id="nav-title">CES 2027</div>
+    </div>
+    <div class="topnav-badge" id="progress-badge">0 / 7</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+  </div>
+
+  <!-- DOT INDICATOR -->
+  <div class="dot-indicator" id="dots">
+    <div class="dot-ind active"></div>
+    <div class="dot-ind"></div>
+    <div class="dot-ind"></div>
+    <div class="dot-ind"></div>
+  </div>
+
+  <!-- SCREENS -->
+  <div class="screens-wrap">
+    <div class="screens" id="screens">
+
+      <!-- ═══ PAGE 0: HOME ═══ -->
+      <div class="screen-page" id="page-home">
+        <div class="home-hero anim">
+          <div class="hero-bg"></div>
+          <div class="hero-grid-lines"></div>
+          <div class="hero-overline">CES 2027 · Las Vegas</div>
+          <div class="hero-headline">모든 산업은<br><span class="accent">AI산업이</span><br>된다</div>
+          <div class="hero-desc">글로벌 기술 시장에서 살아남기 위한 협력과 성장의 답을 찾는 여정</div>
+          <div class="hero-stats">
+            <div class="hero-stat anim anim-d2">
+              <div class="hero-stat-num">148K+</div>
+              <div class="hero-stat-label">CES 2026 참가자</div>
+            </div>
+            <div class="hero-stat anim anim-d3">
+              <div class="hero-stat-num">7</div>
+              <div class="hero-stat-label">핵심 파트</div>
+            </div>
+            <div class="hero-stat anim anim-d4">
+              <div class="hero-stat-num">2027</div>
+              <div class="hero-stat-label">참관 예정</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-section anim anim-d3">
+          <div class="section-eyebrow">CES 의 큰 흐름</div>
+          <div class="flow-timeline">
+            <div class="flow-item">
+              <div class="flow-dot" style="background:var(--c-ai-dim);color:var(--c-ai);">1</div>
+              <div class="flow-content">
+                <div class="flow-period">2015 – 2019</div>
+                <div class="flow-title">연결의 확산</div>
+                <div class="flow-desc">IoT · 5G · 스마트홈. 모든 기기와 공간이 연결되기 시작한 시기. 핵심 질문은 "어떻게 연결할 것인가?"</div>
+              </div>
+            </div>
+            <div class="flow-item">
+              <div class="flow-dot" style="background:var(--c-mob-dim);color:var(--c-mob);">2</div>
+              <div class="flow-content">
+                <div class="flow-period">2020 – 2022</div>
+                <div class="flow-title">기술의 일상화</div>
+                <div class="flow-desc">연결이 기본값이 되자 "기술이 일상을 어떻게 바꾸는가"로 이동. 스마트홈 · 디지털 헬스 · 홈엔터테인먼트 부상.</div>
+              </div>
+            </div>
+            <div class="flow-item">
+              <div class="flow-dot" style="background:var(--c-health-dim);color:var(--c-health);">3</div>
+              <div class="flow-content">
+                <div class="flow-period">2023 – 2024</div>
+                <div class="flow-title">인류 과제 해결</div>
+                <div class="flow-desc">식량안보 · 환경 · 고령화 · 공공안전. 기술이 더 큰 사회적 문제를 겨냥하기 시작.</div>
+              </div>
+            </div>
+            <div class="flow-item">
+              <div class="flow-dot" style="background:var(--c-robot-dim);color:var(--c-robot);">4</div>
+              <div class="flow-content">
+                <div class="flow-period">2025 – 2026</div>
+                <div class="flow-title">현장 증명</div>
+                <div class="flow-desc">"Innovators Show Up" — 아이디어를 넘어 실제 산업 현장에서 스스로 작동하는 기술을 증명.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PAGE 1: PARTS ═══ -->
+      <div class="screen-page" id="page-parts">
+        <div class="parts-header">
+          <div class="parts-title anim">7대 핵심 파트</div>
+          <div class="parts-sub anim anim-d1">각 파트를 탭하면 상세 내용과 현장 체크포인트를 볼 수 있습니다</div>
+        </div>
+        <div class="parts-grid">
+          <div class="part-card anim anim-d1" onclick="openDetail(0)" data-color="ai">
+            <div class="part-card-glow" style="background:var(--c-ai);"></div>
+            <div class="part-card-num" style="color:var(--c-ai);">PART 01</div>
+            <div class="part-card-icon" style="background:var(--c-ai-dim);">🤖</div>
+            <div class="part-card-title">AI<br>Everywhere</div>
+            <div class="part-card-sub">AI Living · Tombot Jennie</div>
+            <div class="part-card-arrow">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="part-card anim anim-d2" onclick="openDetail(1)" data-color="mob">
+            <div class="part-card-glow" style="background:var(--c-mob);"></div>
+            <div class="part-card-num" style="color:var(--c-mob);">PART 02</div>
+            <div class="part-card-icon" style="background:var(--c-mob-dim);">🚗</div>
+            <div class="part-card-title">모빌리티</div>
+            <div class="part-card-sub">자율주행 · SDV</div>
+            <div class="part-card-arrow">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="part-card anim anim-d3" onclick="openDetail(2)" data-color="health">
+            <div class="part-card-glow" style="background:var(--c-health);"></div>
+            <div class="part-card-num" style="color:var(--c-health);">PART 03</div>
+            <div class="part-card-icon" style="background:var(--c-health-dim);">💊</div>
+            <div class="part-card-title">디지털<br>헬스</div>
+            <div class="part-card-sub">바이오웨어러블 · 슬립테크</div>
+            <div class="part-card-arrow">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="part-card anim anim-d4" onclick="openDetail(3)" data-color="robot">
+            <div class="part-card-glow" style="background:var(--c-robot);"></div>
+            <div class="part-card-num" style="color:var(--c-robot);">PART 04</div>
+            <div class="part-card-icon" style="background:var(--c-robot-dim);">⚙️</div>
+            <div class="part-card-title">로봇 &<br>자동화</div>
+            <div class="part-card-sub">Atlas · Unitree H1</div>
+            <div class="part-card-arrow">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="part-card anim anim-d5" onclick="openDetail(4)" data-color="home">
+            <div class="part-card-glow" style="background:var(--c-home);"></div>
+            <div class="part-card-num" style="color:var(--c-home);">PART 05</div>
+            <div class="part-card-icon" style="background:var(--c-home-dim);">🏠</div>
+            <div class="part-card-title">스마트홈</div>
+            <div class="part-card-sub">빨래개기 전쟁 · AI 가전</div>
+            <div class="part-card-arrow">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="part-card anim anim-d6" onclick="openDetail(5)" data-color="esg">
+            <div class="part-card-glow" style="background:var(--c-esg);"></div>
+            <div class="part-card-num" style="color:var(--c-esg);">PART 06</div>
+            <div class="part-card-icon" style="background:var(--c-esg-dim);">🌱</div>
+            <div class="part-card-title">ESG</div>
+            <div class="part-card-sub">두산밥캣 · 오시코시</div>
+            <div class="part-card-arrow">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="part-card wide anim anim-d7" onclick="openDetail(6)" data-color="life">
+            <div class="part-card-glow" style="background:var(--c-life); width:160px; height:160px;"></div>
+            <div class="part-card-num" style="color:var(--c-life);">PART 07</div>
+            <div class="part-card-icon" style="background:var(--c-life-dim);">✨</div>
+            <div class="part-card-title">라이프스타일</div>
+            <div class="part-card-sub">한국콜마 AI 두피진단 · 아모레퍼시픽 Skinsight</div>
+            <div class="part-card-arrow">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PAGE 2: DETAIL ═══ -->
+      <div class="screen-page" id="page-detail">
+        <div id="detail-content"></div>
+      </div>
+
+      <!-- ═══ PAGE 3: CHECKLIST ═══ -->
+      <div class="screen-page" id="page-check">
+        <div class="checklist-header">
+          <div class="checklist-title anim">현장 체크리스트</div>
+          <div class="checklist-sub anim anim-d1">각 항목을 탭하여 체크하세요. 현장에서 바로 활용하는 도구입니다.</div>
+        </div>
+
+        <div class="checklist-progress anim anim-d2">
+          <div class="cp-row">
+            <div class="cp-label">완료한 항목</div>
+            <div class="cp-count" id="cl-count">0 / 28</div>
+          </div>
+          <div class="cp-bar"><div class="cp-fill" id="cl-bar"></div></div>
+        </div>
+
+        <div id="checklist-body"></div>
+
+        <div class="outro-card anim">
+          <div class="outro-glow"></div>
+          <div class="outro-quote">제품이 사라지고,<br><span class="hl">판단이 남는다</span></div>
+          <div class="outro-sub">전시장을 걷는 단 하나의 렌즈 — "이 기술은 우리 산업의 어떤 비효율을 없애는가?"</div>
+        </div>
+      </div>
+
+    </div><!-- /screens -->
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottomnav">
+    <button class="bn-btn active" id="bn-0" onclick="goPage(0)">
+      <div class="bn-icon">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H13V13H7V17H3V10Z" stroke="#8899BB" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="bn-label">홈</div>
+    </button>
+    <button class="bn-btn" id="bn-1" onclick="goPage(1)">
+      <div class="bn-icon">
+        <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="6" height="6" rx="1.5" stroke="#8899BB" stroke-width="1.5"/><rect x="11" y="3" width="6" height="6" rx="1.5" stroke="#8899BB" stroke-width="1.5"/><rect x="3" y="11" width="6" height="6" rx="1.5" stroke="#8899BB" stroke-width="1.5"/><rect x="11" y="11" width="6" height="6" rx="1.5" stroke="#8899BB" stroke-width="1.5"/></svg>
+      </div>
+      <div class="bn-label">파트</div>
+    </button>
+    <button class="bn-btn" id="bn-2" onclick="goPage(2)" style="display:none" id="bn-detail-btn">
+      <div class="bn-icon">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#8899BB" stroke-width="1.5"/><path d="M10 7V10L12 12" stroke="#8899BB" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="bn-label">상세</div>
+    </button>
+    <button class="bn-btn" id="bn-3" onclick="goPage(3)">
+      <div class="bn-icon">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M4 6H16M4 10H16M4 14H10" stroke="#8899BB" stroke-width="1.5" stroke-linecap="round"/><circle cx="15" cy="14" r="3" stroke="#8899BB" stroke-width="1.5"/><path d="M14 14L14.8 14.8" stroke="#8899BB" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="bn-label">체크</div>
+    </button>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────
+const parts = [
+  {
+    id:0, num:'01', color:'ai', colorVar:'--c-ai', bgVar:'--c-ai-dim',
+    emoji:'🤖', title:'AI Everywhere',
+    tags:['AI Living','Tombot Jennie','정서적 AI'],
+    lead:'AI는 더 이상 특별한 기술이 아닙니다. 사용자의 생활 패턴을 이해하고, 상황에 맞게 반응하며, 정서적 교감까지 제공하는 <strong>생활형 AI 에이전트</strong>로 진화하고 있습니다.',
+    cases:[
+      {name:'AI Living (삼성)', badge:'CES 2026', badgeColor:'#1E3A5F', badgeText:'#3B82F6', desc:'집 안의 기기가 하나의 생활 흐름 안에서 연결됩니다. 조작 방식이 버튼→앱→대화·상황 AI로 바뀌며, 제품 간 연결된 생태계 경쟁이 시작되었습니다.'},
+      {name:'Tombot Jennie', badge:'돌봄 AI', badgeColor:'#1A0D3A', badgeText:'#A78BFA', desc:'로봇 강아지가 고령자의 정서적 공백을 보완합니다. AI의 활용 범위가 효율성→편의성→정서적 가치로 확장된 상징적 사례입니다.'},
+    ],
+    insights:[
+      {text:'<strong>AI의 물리적 존재화</strong> — 스마트폰 화면 밖으로 나와 만지고 반응하는 물리적 존재로 등장'},
+      {text:'<strong>돌봄의 기술화</strong> — 고령화·1인가구·돌봄 인력 부족이 기술 보조 수단을 필수로 만들고 있음'},
+      {text:'<strong>경험 중심 전환</strong> — 기능 중심에서 사용자 생활을 자연스럽게 개인화하는 경험으로 이동'},
+    ],
+    checkpoints:['이 AI는 사용자의 어떤 불편을 줄이는가?','제품 기능을 넘어 서비스 경험을 만드는가?','고령화·돌봄·에너지·안전 같은 실제 문제와 연결되는가?','우리 기업 제품에 적용하거나 협업할 수 있는 요소가 있는가?'],
+  },
+  {
+    id:1, num:'02', color:'mob', colorVar:'--c-mob', bgVar:'--c-mob-dim',
+    emoji:'🚗', title:'모빌리티',
+    tags:['달리는 공간','자율주행','SDV'],
+    lead:'전기차 경쟁을 넘어 <strong>공간 경쟁·데이터 경쟁·운영체제 경쟁</strong>으로 확장되고 있습니다. "차 안에서 사람은 무엇을 경험하는가?"가 핵심 질문입니다.',
+    cases:[
+      {name:'Sony Honda AFEELA', badge:'개발 중단', badgeColor:'#3A1A0A', badgeText:'#F59E0B', desc:'자동차를 달리는 스마트 디바이스로 본 혁신적 시도. 그러나 2026년 3월 개발 중단. 기술 비전과 양산·비용·공급망의 현실 간 간극을 보여준 교훈적 사례.'},
+      {name:'Waymo · Zoox', badge:'실운용 중', badgeColor:'#064E3B', badgeText:'#10B981', desc:'라스베이거스에서 실제 승객을 태우는 로보택시 서비스 운영 중. 자율주행이 기술 시연을 넘어 서비스 플랫폼 경쟁 단계로 진입했음을 증명.'},
+    ],
+    insights:[
+      {text:'<strong>공간화</strong> — 콘텐츠 소비·정보 확인·휴식하는 생활공간으로 전환 중'},
+      {text:'<strong>운영 인프라가 경쟁력</strong> — 센서·알고리즘뿐 아니라 충전·정비·관제 시스템 전체가 경쟁의 핵심'},
+      {text:'<strong>캐즘의 현실</strong> — 화려한 기술 비전도 시장 대중화 구간을 넘지 못하면 사업화 실패'},
+    ],
+    checkpoints:['단순 전기차 경쟁인가, 공간·데이터 플랫폼 경쟁인가?','기술 시연 단계인가, 실제 서비스 운영 단계인가?','AFEELA 실패에서 양산·비용·파트너십의 현실적 교훈은?','차량 OS 경쟁에서 우리 기업이 연결되거나 배제될 지점은?'],
+  },
+  {
+    id:2, num:'03', color:'health', colorVar:'--c-health', bgVar:'--c-health-dim',
+    emoji:'💊', title:'디지털 헬스',
+    tags:['바이오웨어러블','슬립테크','예방 헬스케어'],
+    lead:'측정 중심의 웨어러블에서 <strong>예방 중심의 바이오 데이터 플랫폼</strong>으로 이동하고 있습니다. 혈당·대사·호르몬·수면을 하나의 데이터 흐름으로 관리하는 방향입니다.',
+    cases:[
+      {name:'Abbott 바이오웨어러블', badge:'주목 기술', badgeColor:'#4D3000', badgeText:'#F59E0B', desc:'혈당 데이터가 당뇨 환자만을 위한 의료 데이터를 넘어, 운동·식사·수면·스트레스에 따른 몸의 변화를 이해하는 생활 데이터로 확장 중.'},
+      {name:'NeuroTx WillSleep', badge:'슬립테크', badgeColor:'#1A0D3A', badgeText:'#A78BFA', desc:'목 부위 비침습 전기자극으로 수면 개선을 유도. 측정·기록을 넘어 사용자 신체에 직접 개입해 컨디션을 바꾸는 비약물·개인맞춤형 접근.'},
+    ],
+    insights:[
+      {text:'<strong>피트니스→바이오 데이터</strong> — 걸음 수·심박수에서 혈당·대사·심혈관 데이터로 확장'},
+      {text:'<strong>예방 중심 전환</strong> — 질병 발생 후 치료가 아니라 이상 징후 사전 파악으로 이동'},
+      {text:'<strong>병원 밖 헬스케어</strong> — 가정·고령자 돌봄·수면·만성질환 관리 영역으로 확대'},
+    ],
+    checkpoints:['단순 수치 측정인가, AI가 생활습관 변화를 유도하는 코칭 단계인가?','의료기기 인증 수준인가, 일반 웰니스 제품인가?','B2B(보험사·요양시설·기업 복지) 모델로 확장 가능한가?','우리 기업 사업과 디지털 헬스 데이터를 결합할 접점이 있는가?'],
+  },
+  {
+    id:3, num:'04', color:'robot', colorVar:'--c-robot', bgVar:'--c-robot-dim',
+    emoji:'⚙️', title:'로봇 & 자동화',
+    tags:['Atlas','Unitree H1','피지컬 AI'],
+    lead:'\'보여주는 로봇\'에서 <strong>\'일하는 로봇\'</strong>으로 넘어가는 전환점입니다. 핵심 질문은 "얼마나 사람처럼 보이는가"가 아닌 "사람의 일을 얼마나 안정적으로 대신하는가"입니다.',
+    cases:[
+      {name:'Boston Dynamics Atlas', badge:'산업화', badgeColor:'#1A0D3A', badgeText:'#A78BFA', desc:'전기식 전환으로 더 정교한 움직임. 제조·물류·자재 취급 등 실제 산업 환경에서 활용될 방향으로 개발 중. 로봇의 산업화를 상징.'},
+      {name:'Unitree H1', badge:'대중화', badgeColor:'#064E3B', badgeText:'#10B981', desc:'춤·빠른 보행으로 운동 성능 과시. 빠른 개발 속도와 가격 경쟁력이 강점. 연구기관·서비스·교육·중소기업 시장으로의 확산 가능성을 보여줌.'},
+    ],
+    insights:[
+      {text:'<strong>로봇의 노동력화</strong> — 전시용 기술이 아닌 제조·물류·정비 현장의 반복 작업 대체'},
+      {text:'<strong>중국 로봇 기업 부상</strong> — 빠른 개발 주기와 가격 경쟁력으로 글로벌 영향력 확대'},
+      {text:'<strong>퍼포먼스의 기술적 의미</strong> — 춤·달리기는 볼거리가 아닌 운동 제어 능력과 안정성 데모'},
+    ],
+    checkpoints:['퍼포먼스 시연용인가, 현장 즉각 투입 가능한 수준인가?','고도화된 산업 현장인가, 중소기업·서비스·교육 영역인가?','우리 현장 중 인력 부족·반복 작업이 집중된 곳은 어디인가?','중국 로봇 기업의 가격 경쟁력이 우리 공급망에 미치는 영향은?'],
+  },
+  {
+    id:4, num:'05', color:'home', colorVar:'--c-home', bgVar:'--c-home-dim',
+    emoji:'🏠', title:'스마트홈',
+    tags:['빨래개기 전쟁','AI 가전','Zero Labor'],
+    lead:'단순한 기기 연결을 넘어 <strong>사람이 귀찮아하는 마지막 집안일을 자동화</strong>하는 방향으로 진화하고 있습니다. 집 전체가 하나의 AI 생활 시스템처럼 작동하는 미래.',
+    cases:[
+      {name:'LG CLOiD', badge:'가사 로봇', badgeColor:'#5B1A3C', badgeText:'#F472B6', desc:'세탁물을 세탁기에 넣고, 옷을 개고, 간단한 심부름까지. 가전과 가전 사이의 빈틈을 로봇이 메우는 방향. 아직 동작이 느리고 출시일·가격 미확정.'},
+      {name:'삼성 Bespoke AI Home', badge:'AI 생태계', badgeColor:'#1E3A5F', badgeText:'#3B82F6', desc:'냉장고가 식재료를 인식해 레시피를 제안하고, 세탁기는 옷감과 패턴에 맞게 최적화. SmartThings 중심의 연결 생태계 경쟁을 보여줌.'},
+    ],
+    insights:[
+      {text:'<strong>가전의 로봇화</strong> — 가전과 가전 사이의 일을 로봇이 연결하는 방향'},
+      {text:'<strong>Zero Labor Home</strong> — 사람이 직접 해야 했던 집안일을 줄이는 노동 절감형 주거 공간'},
+      {text:'<strong>운영체제 경쟁</strong> — 개별 가전 성능보다 기기들을 연결·제어하는 플랫폼 경쟁'},
+    ],
+    checkpoints:['AI가 생활 패턴을 이해하고 먼저 행동하는 에이전트 수준인가?','CLOiD처럼 시연 속도·정확도가 실사용 수준인가, 콘셉트인가?','특정 플랫폼 생태계에 우리 제품이 포함될 수 있는가, 배제되는가?','고령자·1인가구·맞벌이 가구 대상 B2B 사업화 기회가 있는가?'],
+  },
+  {
+    id:5, num:'06', color:'esg', colorVar:'--c-esg', bgVar:'--c-esg-dim',
+    emoji:'🌱', title:'ESG',
+    tags:['제로오일','전동화','공공 안전'],
+    lead:'단순한 규제 대응을 넘어 <strong>현장 운영의 재설계, 산업 플랫폼의 전환</strong>으로 확장됩니다. ESG가 비용이 아닌 기술 경쟁력의 원천이 되는 방향.',
+    cases:[
+      {name:'두산밥캣 RogueX3', badge:'콘셉트', badgeColor:'#064438', badgeText:'#34D399', desc:'완전 전동·자율 구동, 100% 유압 제거(제로오일) 설계. AI 음성 제어로 50여 기능 조작. 2031년까지 미국 건설 인력 41% 은퇴 예정 — ESG와 자동화가 교차하는 지점.'},
+      {name:'오시코시 스트라이커 볼테라', badge:'실전 배치', badgeColor:'#064E3B', badgeText:'#10B981', desc:'DFW 공항에서 2025년 11월부터 실제 운용 중인 전기 소방차. 디젤 대비 초기 가속 28% 빠름. 탄소발자국 최대 75% 감소. CES 최고혁신상 수상.'},
+    ],
+    insights:[
+      {text:'<strong>중장비의 제로오일화</strong> — 누유 위험 원천 제거, 유지보수 부담 대폭 감소'},
+      {text:'<strong>인력 위기와 자동화의 교차</strong> — 탄소 절감 전동화가 동시에 노동력 부족도 해결'},
+      {text:'<strong>성숙도 차이</strong> — 비전 플랫폼(RogueX3) vs 실전 배치 상용 제품(볼테라)을 구분해 볼 것'},
+    ],
+    checkpoints:['콘셉트·비전 단계인가, 실제 현장에서 운용 중인 상용 제품인가?','전동화·자율화가 환경 성과와 생산성·안전성을 동시에 높이는가?','우리 장비·설비 중 유사한 ESG 전환 가능성이 있는 영역은?','충전·인증·규제 등 도입을 위한 현실적 인프라 조건은?'],
+  },
+  {
+    id:6, num:'07', color:'life', colorVar:'--c-life', bgVar:'--c-life-dim',
+    emoji:'✨', title:'라이프스타일',
+    tags:['K-뷰티','AI 진단','바이오 데이터'],
+    lead:'성분 경쟁과 트렌드 경쟁을 넘어 <strong>데이터 개인화 경쟁, 진단 플랫폼 경쟁</strong>으로 확장됩니다. K-뷰티가 글로벌 기술 무대에서 직접 경쟁력을 증명하는 순간.',
+    cases:[
+      {name:'한국콜마 Scalp CAIOME', badge:'CES 최고혁신상', badgeColor:'#4A1A00', badgeText:'#FB923C', desc:'AI+마이크로바이옴으로 15분 만에 16가지 탈모 유형 분류, 1만 개 이상 맞춤 제형 추천. OEM·ODM 기업에서 AI·빅데이터 플랫폼 기업으로의 전환 선언.'},
+      {name:'아모레퍼시픽 Skinsight', badge:'혁신상', badgeColor:'#4A1A00', badgeText:'#FB923C', desc:'MIT 공동 개발 전자피부 패치로 노화 신호 실시간 측정. 삼성 AI 뷰티 미러와 통합. 진단→분석→치료로 이어지는 연결된 플랫폼 구현.'},
+    ],
+    insights:[
+      {text:'<strong>K-뷰티의 기술 전환</strong> — 트렌드를 만드는 산업에서 기술로 사람의 몸을 이해하는 산업으로'},
+      {text:'<strong>가전과 뷰티의 통합</strong> — 뷰티 데이터가 스마트홈 플랫폼 안에서 작동하기 시작'},
+      {text:'<strong>데이터 경쟁력</strong> — 좋은 성분보다 더 많은 생체 데이터와 정교한 AI 진단이 경쟁 우위'},
+    ],
+    checkpoints:['제품 기능 개선인가, 생체 데이터 수집·AI 해석·개인화 솔루션 제안 플랫폼인가?','K-뷰티 기업과 협력하거나 경쟁해야 할 지점은 어디인가?','B2B(병원·피부과·살롱) 또는 B2C 모델로 확장 가능한가?','규제(의료기기 여부)·데이터 프라이버시·비용 장벽을 어떻게 넘을 것인가?'],
+  },
+];
+
+const checklistData = [
+  { section:'AI Everywhere', color:'var(--c-ai)', items:['이 AI는 사용자의 어떤 불편을 줄이는가?','제품 기능을 넘어 서비스 경험을 만드는가?','고령화·돌봄·에너지 같은 실제 문제와 연결되는가?'] },
+  { section:'모빌리티', color:'var(--c-mob)', items:['단순 전기차 경쟁인가, 공간·데이터 플랫폼 경쟁인가?','기술 시연 단계인가, 실제 서비스 운영 단계인가?','우리와 가치사슬 접점이 생길 수 있는 지점은?'] },
+  { section:'디지털 헬스', color:'var(--c-health)', items:['단순 수치 측정인가, AI 코칭 단계인가?','의료기기 인증 수준인가, 웰니스 제품인가?','B2B 모델로 확장 가능한가?'] },
+  { section:'로봇 & 자동화', color:'var(--c-robot)', items:['퍼포먼스 시연용인가, 현장 투입 가능한 수준인가?','우리 현장 중 로봇 협업 가능한 영역은?','중국 기업 가격 경쟁력이 우리 공급망에 미치는 영향은?'] },
+  { section:'스마트홈', color:'var(--c-home)', items:['AI 에이전트 수준인가, 단순 기기 연결인가?','특정 플랫폼 생태계에 우리 제품이 포함되는가?','가사 자동화 B2B 사업화 기회가 있는가?'] },
+  { section:'ESG', color:'var(--c-esg)', items:['콘셉트 단계인가, 실제 운용 중인 상용 제품인가?','우리 장비 중 ESG 전환 가능 영역은?','도입을 위한 현실적 인프라 조건은?'] },
+  { section:'라이프스타일', color:'var(--c-life)', items:['데이터 개인화 플랫폼 수준인가?','K-뷰티 기업과 협력·경쟁 지점은?','B2B/B2C 확장 가능성은?'] },
+];
+
+// ── STATE ──────────────────────────────────────────────
+let currentPage = 0;
+let currentDetail = null;
+let checked = new Set(JSON.parse(localStorage.getItem('ces_checks') || '[]'));
+const totalItems = checklistData.reduce((s,g)=>s+g.items.length,0);
+
+// ── NAVIGATION ──────────────────────────────────────────
+const screens = document.getElementById('screens');
+const pageTitles = ['CES 2027','7대 핵심 파트','상세 보기','체크리스트'];
+const pageEyebrows = ['Overview','Trend Map','Detail','현장 도구'];
+
+function goPage(n) {
+  currentPage = n;
+  screens.style.transform = `translateX(-${n * 100}%)`;
+  document.querySelectorAll('.bn-btn').forEach((b,i) => b.classList.toggle('active', i===n));
+  document.getElementById('nav-title').textContent = pageTitles[n];
+  document.getElementById('nav-eyebrow').textContent = pageEyebrows[n];
+  updateDots(n);
+}
+
+function updateDots(n) {
+  document.querySelectorAll('.dot-ind').forEach((d,i) => d.classList.toggle('active', i===n));
+}
+
+// ── DETAIL ──────────────────────────────────────────────
+const colorMap = {
+  ai:  {main:'#3B82F6', dim:'#1E3A5F'},
+  mob: {main:'#10B981', dim:'#064E3B'},
+  health:{main:'#F59E0B',dim:'#4D3000'},
+  robot:{main:'#A78BFA',dim:'#2E1A5E'},
+  home: {main:'#F472B6',dim:'#5B1A3C'},
+  esg:  {main:'#34D399',dim:'#064438'},
+  life: {main:'#FB923C',dim:'#4A1A00'},
+};
+
+function openDetail(idx) {
+  currentDetail = idx;
+  const p = parts[idx];
+  const c = colorMap[p.color];
+
+  const tagsHTML = p.tags.map(t =>
+    `<span class="detail-tag" style="color:${c.main};border-color:${c.main}33;background:${c.dim}33">${t}</span>`
+  ).join('');
+
+  const casesHTML = p.cases.map(cs =>
+    `<div class="case-card">
+      <div class="case-card-accent" style="background:${c.main}"></div>
+      <div class="case-card-header">
+        <div class="case-card-name">${cs.name}</div>
+        <span class="case-badge" style="background:${cs.badgeColor};color:${cs.badgeText}">${cs.badge}</span>
+      </div>
+      <div class="case-desc">${cs.desc}</div>
+    </div>`
+  ).join('');
+
+  const insightsHTML = p.insights.map(ins =>
+    `<div class="insight-item">
+      <div class="insight-dot" style="background:${c.main}"></div>
+      <div class="insight-text">${ins.text}</div>
+    </div>`
+  ).join('');
+
+  const checkpointsHTML = p.checkpoints.map((q,i) =>
+    `<div class="checkpoint-item">
+      <div class="checkpoint-num" style="background:${c.dim};color:${c.main}">Q${i+1}</div>
+      <div class="checkpoint-q">${q}</div>
+    </div>`
+  ).join('');
+
+  document.getElementById('detail-content').innerHTML = `
+    <div class="detail-hero">
+      <div class="detail-hero-bg" style="background:radial-gradient(ellipse 140% 100% at 80% 0%,${c.main}20 0%,transparent 65%)"></div>
+      <button class="detail-back" onclick="goPage(1)">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        파트 목록으로
+      </button>
+      <div class="detail-part-num" style="color:${c.main}">PART ${p.num}</div>
+      <div class="detail-title">${p.title}</div>
+      <div class="detail-tags">${tagsHTML}</div>
+    </div>
+    <div class="detail-content">
+      <div class="detail-lead">${p.lead}</div>
+      <div class="case-section">
+        <div class="case-label">주요 사례</div>
+        ${casesHTML}
+      </div>
+      <div class="case-section">
+        <div class="case-label">핵심 인사이트</div>
+        <div class="insight-list">${insightsHTML}</div>
+      </div>
+      <div class="checkpoint-box" style="background:${c.dim}33;border-color:${c.main}33">
+        <div class="checkpoint-header" style="color:${c.main}">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="${c.main}" stroke-width="1.3"/><path d="M4.5 7L6.5 9L9.5 5" stroke="${c.main}" stroke-width="1.3" stroke-linecap="round"/></svg>
+          2027 참관 체크포인트
+        </div>
+        ${checkpointsHTML}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('page-detail').scrollTop = 0;
+  document.getElementById('bn-2').style.display = 'flex';
+  goPage(2);
+}
+
+// ── CHECKLIST ──────────────────────────────────────────
+function buildChecklist() {
+  let html = '';
+  let globalIdx = 0;
+  checklistData.forEach((group) => {
+    html += `<div class="checklist-section">
+      <div class="cl-section-head">
+        <div class="cl-dot" style="background:${group.color}"></div>
+        <div class="cl-section-name">${group.section}</div>
+      </div>`;
+    group.items.forEach((item) => {
+      const key = `item_${globalIdx}`;
+      const isChecked = checked.has(key);
+      html += `<div class="cl-item${isChecked?' checked':''}" onclick="toggleCheck('${key}',this)">
+        <div class="cl-checkbox" style="${isChecked?`background:${group.color}33;border-color:${group.color}`:''}">
+          <svg viewBox="0 0 11 11" fill="none">
+            <path d="M1.5 5.5L4.5 8.5L9.5 2.5" stroke="${group.color}" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="cl-text">${item}</div>
+      </div>`;
+      globalIdx++;
+    });
+    html += '</div>';
+  });
+  document.getElementById('checklist-body').innerHTML = html;
+  updateProgress();
+}
+
+function toggleCheck(key, el) {
+  if (checked.has(key)) {
+    checked.delete(key);
+    el.classList.remove('checked');
+    const cb = el.querySelector('.cl-checkbox');
+    cb.style.background = '';
+    cb.style.borderColor = '';
+  } else {
+    checked.add(key);
+    el.classList.add('checked');
+  }
+  localStorage.setItem('ces_checks', JSON.stringify([...checked]));
+  updateProgress();
+}
+
+function updateProgress() {
+  const count = checked.size;
+  const pct = Math.round((count/totalItems)*100);
+  document.getElementById('cl-count').textContent = `${count} / ${totalItems}`;
+  document.getElementById('cl-bar').style.width = pct + '%';
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-badge').textContent = `${count} / ${totalItems}`;
+}
+
+// ── SPLASH → APP ──────────────────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hide');
+    document.getElementById('app').classList.add('visible');
+  }, 2000);
+});
+
+// ── INIT ──────────────────────────────────────────────
+buildChecklist();
+</script>
+</body>
+</html>
